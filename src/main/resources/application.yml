@@ -1,0 +1,30 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: inventory-order-api
+  datasource:
+    url: ${SPRING_DATASOURCE_URL:jdbc:h2:mem:inventorydb;DB_CLOSE_DELAY=-1;MODE=PostgreSQL}
+    username: ${SPRING_DATASOURCE_USERNAME:sa}
+    password: ${SPRING_DATASOURCE_PASSWORD:}
+    driver-class-name: ${SPRING_DATASOURCE_DRIVER:org.h2.Driver}
+  jpa:
+    hibernate:
+      ddl-auto: update
+    open-in-view: false
+    properties:
+      hibernate:
+        format_sql: true
+  h2:
+    console:
+      enabled: true
+
+app:
+  jwt:
+    secret: ${JWT_SECRET:change-me-change-me-change-me-change-me-change-me-change-me}
+    expiration-minutes: ${JWT_EXPIRATION_MINUTES:120}
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
