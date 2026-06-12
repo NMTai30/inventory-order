@@ -1,106 +1,65 @@
-# Inventory & Order Management API
+Backend application for managing products, inventory, and order processing built with Java Spring Boot.
+The project demonstrates a real-world inventory workflow with JWT authentication, role-based authorization, transactional stock management, RESTful APIs, and Swagger documentation.
+# Overview
+The system provides APIs and a web interface for:
+- User authentication and authorization
+- Product management
+- Inventory tracking
+- Order creation and processing
+- Stock reservation, deduction, and restoration using database transactions
+The application supports two user roles:
+- Admin: Manage products, Update inventory, Manage system data
+- User: Register account, Browse products, Create and manage orders
+# Key features
+## Authentication & Authorization
+- JWT-based authentication
+- Secure API access with Bearer Token
+- Role-based authorization (Admin, User)
+- User registration and login
+## Product Management
+Admin can:
+- Create products
+- Update product information
+- Delete products
+- Check duplicated SKU
+- Search products
+- Pagination support
+## Inventory Management
+System supports:
+- Inventory tracking
+- Stock update
+- Stock availability checking
+- Transaction-safe stock operations
+## Order Processing Workflow
+The order system supports a complete lifecycle:
+- Create order
+- Confirm order
+- Cancel order
+- Delete order
+## Transaction Management
 
-Java Spring Boot starter cho quản lý sản phẩm, tồn kho và đơn hàng. Project có JWT auth, transaction khi giữ/trừ/hoàn kho và Swagger UI.
-
-Mặc định project chạy bằng H2 embedded in-memory, không cần Docker/Postgres. Data chỉ lưu tạm trong lúc API chạy và sẽ reset khi restart app.
-
-## Chạy local không cần Docker
-
-Yêu cầu Java 21 và Maven:
-
-```bash
-mvn spring-boot:run
-```
-
-Swagger UI:
-
-```text
+# Running locally
+## Requirements
+- Java 21
+- Maven
+## Swagger Documentation
 http://localhost:8080/swagger-ui.html
-```
+## Frontend pages
+Login: http://localhost:8080/
+Dashboard: http://localhost:8080/dashboard.html
+Products: http://localhost:8080/products.html
+Inventory: http://localhost:8080/inventory.html
+Orders: http://localhost:8080/orders.html
+## Database
+H2 Console: http://localhost:8080/h2-console
+Database is temporary and will reset after restarting the application.
+## Default Accounts
+Admin:
+username: admin
+password: admin123
 
-Frontend web:
-
-```text
-http://localhost:8080/
-```
-
-Sau khi đăng nhập thành công, frontend chuyển tới:
-
-```text
-http://localhost:8080/dashboard.html
-```
-
-Các trang chức năng:
-
-```text
-http://localhost:8080/products.html
-http://localhost:8080/inventory.html
-http://localhost:8080/orders.html
-```
-
-H2 Console:
-
-```text
-http://localhost:8080/h2-console
-```
-
-Thông tin kết nối H2:
-
-```text
-JDBC URL: jdbc:h2:mem:inventorydb
-User: sa
-Password: <để trống>
-```
-
-Tài khoản seed sẵn:
-
-```text
-admin / admin123
-user  / user123
-```
-
-## Chạy Docker tuỳ chọn
-
-```bash
+User:
+username: user
+password: user123
+## Docker Deployment
 docker compose up --build
-```
-
-## Luồng API chính
-
-1. `POST /api/auth/login` lấy JWT.
-2. `POST /api/auth/register` đăng ký tài khoản người dùng thường.
-3. Dùng `Authorization: Bearer <token>`.
-4. `GET /api/products?q=mouse&page=0&size=10` tìm kiếm và phân trang sản phẩm.
-5. `GET /api/inventory` xem tồn kho.
-6. `POST /api/orders` tạo đơn, hệ thống giữ kho bằng transaction.
-7. `POST /api/orders/{id}/confirm` xác nhận đơn, trừ phần kho đã giữ.
-8. `POST /api/orders/{id}/cancel` hủy đơn pending, hoàn kho đã giữ.
-9. `POST /api/orders/{id}/return` trả đơn confirmed, cộng lại kho.
-
-## Tính năng nổi bật
-
-- JWT authentication và phân quyền `ADMIN` / `USER`.
-- Đăng ký tài khoản user.
-- CRUD sản phẩm cho admin, kiểm tra trùng SKU.
-- Tìm kiếm và phân trang danh sách sản phẩm.
-- Theo dõi tồn kho, nhập thêm tồn kho cho admin.
-- Luồng đơn hàng có transaction giữ/trừ/hoàn kho.
-- Frontend nhiều trang: đăng nhập, trang chủ, sản phẩm, tồn kho, đơn hàng.
-- UI có modal thêm/sửa sản phẩm, filter, pagination, loading và thông báo lỗi.
-
-Ví dụ login:
-
-```bash
-curl -X POST http://localhost:8080/api/auth/login \
-  -H "Content-Type: application/json" \
-  -d '{"username":"admin","password":"admin123"}'
-```
-
-Ví dụ tạo đơn:
-
-```bash
-curl -X POST http://localhost:8080/api/orders \
-  -H "Content-Type: application/json" \
-  -H "Authorization: Bearer <token>" \
-  -d '{"customerName":"Acme","items":[{"productId":1,"quantity":2}]}'
-```
