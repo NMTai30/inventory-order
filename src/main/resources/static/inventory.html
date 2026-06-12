@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Tồn kho - Inventory Order</title>
+    <link rel="stylesheet" href="/assets/styles.css">
+</head>
+<body data-page="inventory">
+<div class="app-shell">
+    <aside class="sidebar">
+        <a class="brand" href="/dashboard.html">
+            <span class="brand-mark">IO</span>
+            <div>
+                <strong>Inventory Order</strong>
+                <span>Quản lý bán hàng</span>
+            </div>
+        </a>
+        <nav class="nav-tabs" aria-label="Chức năng">
+            <a class="nav-tab" href="/dashboard.html">Trang chủ</a>
+            <a class="nav-tab" href="/products.html">Sản phẩm</a>
+            <a class="nav-tab active" href="/inventory.html">Tồn kho</a>
+            <a class="nav-tab" href="/orders.html">Đơn hàng</a>
+        </nav>
+        <div class="session-card">
+            <span id="sessionStatus">Đang kiểm tra...</span>
+            <button id="logoutBtn" class="ghost-button" type="button">Đăng xuất</button>
+        </div>
+    </aside>
+
+    <main class="content">
+        <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+        <header class="topbar">
+            <div>
+                <p class="eyebrow">Chức năng</p>
+                <h1>Tồn kho</h1>
+            </div>
+            <button id="refreshBtn" class="secondary-button" type="button">Làm mới dữ liệu</button>
+        </header>
+
+        <section class="split-layout">
+            <form id="stockForm" class="panel-form" data-admin-only>
+                <div class="section-heading">
+                    <h2>Nhập thêm tồn kho</h2>
+                </div>
+                <label>Sản phẩm<select id="stockProductId" required></select></label>
+                <label>Số lượng<input id="stockQuantity" type="number" min="1" value="1" required></label>
+                <button class="primary-button" type="submit">Cập nhật tồn kho</button>
+            </form>
+
+            <div class="table-section">
+                <div class="section-heading">
+                    <h2>Tồn kho hiện tại</h2>
+                </div>
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>SKU</th>
+                            <th>Tên</th>
+                            <th>Sẵn sàng</th>
+                            <th>Đang giữ</th>
+                        </tr>
+                        </thead>
+                        <tbody id="inventoryBody"></tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+    </main>
+</div>
+<script src="/assets/app.js"></script>
+</body>
+</html>

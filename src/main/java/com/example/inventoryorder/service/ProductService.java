@@ -7,6 +7,8 @@ import com.example.inventoryorder.domain.Product;
 import com.example.inventoryorder.repository.InventoryItemRepository;
 import com.example.inventoryorder.repository.ProductRepository;
 import jakarta.persistence.EntityNotFoundException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -28,6 +30,15 @@ public class ProductService {
     }
 
     @Transactional(readOnly = true)
+    public Page<ProductResponse> search(String query, Pageable pageable) {
+        String keyword = query == null ? "" : query.trim();
+        Page<Product> page = keyword.isBlank()
+                ? products.findAll(pageable)
+                : products.findBySkuContainingIgnoreCaseOrNameContainingIgnoreCase(keyword, keyword, pageable);
+        return page.map(this::toResponse);
+    }
+
+    @Transactional(readOnly = true)
     public ProductResponse get(Long id) {
         return toResponse(findProduct(id));
     }
@@ -35,7 +46,7 @@ public class ProductService {
     @Transactional
     public ProductResponse create(ProductRequest request) {
         if (products.existsBySku(request.sku())) {
-            throw new IllegalArgumentException("SKU already exists");
+            throw new IllegalArgumentException("SKU đã tồn tại");
         }
         Product product = products.save(new Product(request.sku(), request.name(), request.description(), request.price()));
         product.update(request.sku(), request.name(), request.description(), request.price(), isActive(request));
@@ -49,7 +60,7 @@ public class ProductService {
         products.findBySku(request.sku())
                 .filter(existing -> !existing.getId().equals(id))
                 .ifPresent(existing -> {
-                    throw new IllegalArgumentException("SKU already exists");
+                    throw new IllegalArgumentException("SKU đã tồn tại");
                 });
         product.update(request.sku(), request.name(), request.description(), request.price(), isActive(request));
         return toResponse(product);
@@ -62,7 +73,7 @@ public class ProductService {
     }
 
     private Product findProduct(Long id) {
-        return products.findById(id).orElseThrow(() -> new EntityNotFoundException("Product not found"));
+        return products.findById(id).orElseThrow(() -> new EntityNotFoundException("Không tìm thấy sản phẩm"));
     }
 
     private boolean isActive(ProductRequest request) {

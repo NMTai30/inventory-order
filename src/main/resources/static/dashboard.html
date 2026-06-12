@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Trang chủ - Inventory Order</title>
+    <link rel="stylesheet" href="/assets/styles.css">
+</head>
+<body data-page="dashboard">
+<div class="app-shell">
+    <aside class="sidebar">
+        <a class="brand" href="/dashboard.html">
+            <span class="brand-mark">IO</span>
+            <div>
+                <strong>Inventory Order</strong>
+                <span>Quản lý bán hàng</span>
+            </div>
+        </a>
+        <nav class="nav-tabs" aria-label="Chức năng">
+            <a class="nav-tab active" href="/dashboard.html">Trang chủ</a>
+            <a class="nav-tab" href="/products.html">Sản phẩm</a>
+            <a class="nav-tab" href="/inventory.html">Tồn kho</a>
+            <a class="nav-tab" href="/orders.html">Đơn hàng</a>
+        </nav>
+        <div class="session-card">
+            <span id="sessionStatus">Đang kiểm tra...</span>
+            <button id="logoutBtn" class="ghost-button" type="button">Đăng xuất</button>
+        </div>
+    </aside>
+
+    <main class="content">
+        <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+        <header class="topbar">
+            <div>
+                <p class="eyebrow">Hệ thống quản lý</p>
+                <h1>Trang chủ</h1>
+            </div>
+            <button id="refreshBtn" class="secondary-button" type="button">Làm mới dữ liệu</button>
+        </header>
+
+        <section class="metrics">
+            <article class="metric-card">
+                <span>Sản phẩm</span>
+                <strong id="productCount">0</strong>
+            </article>
+            <article class="metric-card">
+                <span>Sản phẩm đang bán</span>
+                <strong id="activeProductCount">0</strong>
+            </article>
+            <article class="metric-card">
+                <span>Tồn sẵn sàng</span>
+                <strong id="availableTotal">0</strong>
+            </article>
+            <article class="metric-card">
+                <span>Đơn hàng</span>
+                <strong id="orderCount">0</strong>
+            </article>
+        </section>
+
+        <section class="module-grid">
+            <a class="module-card" href="/products.html">
+                <span>Sản phẩm</span>
+                <strong>Quản lý danh mục sản phẩm</strong>
+            </a>
+            <a class="module-card" href="/inventory.html">
+                <span>Tồn kho</span>
+                <strong>Theo dõi và nhập thêm hàng</strong>
+            </a>
+            <a class="module-card" href="/orders.html">
+                <span>Đơn hàng</span>
+                <strong>Tạo, xác nhận, hủy và trả hàng</strong>
+            </a>
+        </section>
+
+        <section class="table-section">
+            <div class="section-heading">
+                <h2>Đơn hàng gần đây</h2>
+            </div>
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Mã đơn</th>
+                        <th>Khách hàng</th>
+                        <th>Trạng thái</th>
+                        <th>Tổng tiền</th>
+                        <th>Ngày tạo</th>
+                    </tr>
+                    </thead>
+                    <tbody id="recentOrdersBody"></tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+</div>
+<script src="/assets/app.js"></script>
+</body>
+</html>

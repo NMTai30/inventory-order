@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Sản phẩm - Inventory Order</title>
+    <link rel="stylesheet" href="/assets/styles.css">
+</head>
+<body data-page="products">
+<div class="app-shell">
+    <aside class="sidebar">
+        <a class="brand" href="/dashboard.html">
+            <span class="brand-mark">IO</span>
+            <div>
+                <strong>Inventory Order</strong>
+                <span>Quản lý bán hàng</span>
+            </div>
+        </a>
+        <nav class="nav-tabs" aria-label="Chức năng">
+            <a class="nav-tab" href="/dashboard.html">Trang chủ</a>
+            <a class="nav-tab active" href="/products.html">Sản phẩm</a>
+            <a class="nav-tab" href="/inventory.html">Tồn kho</a>
+            <a class="nav-tab" href="/orders.html">Đơn hàng</a>
+        </nav>
+        <div class="session-card">
+            <span id="sessionStatus">Đang kiểm tra...</span>
+            <button id="logoutBtn" class="ghost-button" type="button">Đăng xuất</button>
+        </div>
+    </aside>
+
+    <main class="content">
+        <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+        <header class="topbar">
+            <div>
+                <p class="eyebrow">Chức năng</p>
+                <h1>Sản phẩm</h1>
+            </div>
+            <button id="refreshBtn" class="secondary-button" type="button">Làm mới dữ liệu</button>
+        </header>
+
+        <section class="page-actions">
+            <label class="search-field">
+                Tìm kiếm
+                <input id="productSearch" placeholder="Nhập SKU hoặc tên sản phẩm">
+            </label>
+            <label>
+                Trạng thái
+                <select id="productStatusFilter">
+                    <option value="all">Tất cả</option>
+                    <option value="active">Đang bán</option>
+                    <option value="inactive">Ngừng bán</option>
+                </select>
+            </label>
+            <button id="openProductModalBtn" class="primary-button" type="button" data-admin-only>Thêm sản phẩm</button>
+        </section>
+
+        <section>
+            <div class="table-section">
+                <div class="section-heading">
+                    <h2>Danh sách sản phẩm</h2>
+                    <span id="productsSummary" class="muted"></span>
+                </div>
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>SKU</th>
+                            <th>Tên</th>
+                            <th>Giá</th>
+                            <th>Trạng thái</th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody id="productsBody"></tbody>
+                    </table>
+                </div>
+                <div class="pagination">
+                    <button id="prevProductsPage" class="secondary-button" type="button">Trang trước</button>
+                    <span id="productsPageInfo" class="muted">Trang 1</span>
+                    <button id="nextProductsPage" class="secondary-button" type="button">Trang sau</button>
+                </div>
+            </div>
+        </section>
+
+        <dialog id="productModal" class="modal">
+            <form id="productForm" class="panel-form" method="dialog">
+                <div class="section-heading">
+                    <h2 id="productModalTitle">Thêm sản phẩm</h2>
+                    <button id="closeProductModalBtn" type="button" class="ghost-button light">Đóng</button>
+                </div>
+                <input id="productId" type="hidden">
+                <label>SKU<input id="productSku" required></label>
+                <label>Tên sản phẩm<input id="productName" required></label>
+                <label>Mô tả<textarea id="productDescription" rows="3"></textarea></label>
+                <label>Giá<input id="productPrice" type="number" min="0.01" step="0.01" required></label>
+                <label class="checkbox-row"><input id="productActive" type="checkbox" checked> Đang bán</label>
+                <button class="primary-button" type="submit">Lưu sản phẩm</button>
+            </form>
+        </dialog>
+    </main>
+</div>
+<script src="/assets/app.js"></script>
+</body>
+</html>

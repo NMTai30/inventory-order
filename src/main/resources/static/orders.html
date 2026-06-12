@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Đơn hàng - Inventory Order</title>
+    <link rel="stylesheet" href="/assets/styles.css">
+</head>
+<body data-page="orders">
+<div class="app-shell">
+    <aside class="sidebar">
+        <a class="brand" href="/dashboard.html">
+            <span class="brand-mark">IO</span>
+            <div>
+                <strong>Inventory Order</strong>
+                <span>Quản lý bán hàng</span>
+            </div>
+        </a>
+        <nav class="nav-tabs" aria-label="Chức năng">
+            <a class="nav-tab" href="/dashboard.html">Trang chủ</a>
+            <a class="nav-tab" href="/products.html">Sản phẩm</a>
+            <a class="nav-tab" href="/inventory.html">Tồn kho</a>
+            <a class="nav-tab active" href="/orders.html">Đơn hàng</a>
+        </nav>
+        <div class="session-card">
+            <span id="sessionStatus">Đang kiểm tra...</span>
+            <button id="logoutBtn" class="ghost-button" type="button">Đăng xuất</button>
+        </div>
+    </aside>
+
+    <main class="content">
+        <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+        <header class="topbar">
+            <div>
+                <p class="eyebrow">Chức năng</p>
+                <h1>Đơn hàng</h1>
+            </div>
+            <button id="refreshBtn" class="secondary-button" type="button">Làm mới dữ liệu</button>
+        </header>
+
+        <section class="split-layout">
+            <form id="orderForm" class="panel-form">
+                <div class="section-heading">
+                    <h2>Tạo đơn hàng</h2>
+                </div>
+                <label>Khách hàng<input id="customerName" required></label>
+                <label>Sản phẩm<select id="orderProductId" required></select></label>
+                <label>Số lượng<input id="orderQuantity" type="number" min="1" value="1" required></label>
+                <button class="primary-button" type="submit">Tạo đơn</button>
+            </form>
+
+            <div class="table-section">
+                <div class="section-heading">
+                    <h2>Danh sách đơn hàng</h2>
+                    <label class="inline-filter">
+                        Lọc trạng thái
+                        <select id="orderStatusFilter">
+                            <option value="all">Tất cả</option>
+                            <option value="PENDING">Chờ xử lý</option>
+                            <option value="CONFIRMED">Đã xác nhận</option>
+                            <option value="CANCELLED">Đã hủy</option>
+                            <option value="RETURNED">Đã trả hàng</option>
+                        </select>
+                    </label>
+                </div>
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>Mã đơn</th>
+                            <th>Khách hàng</th>
+                            <th>Trạng thái</th>
+                            <th>Tổng tiền</th>
+                            <th>Thao tác</th>
+                        </tr>
+                        </thead>
+                        <tbody id="ordersBody"></tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+    </main>
+</div>
+<script src="/assets/app.js"></script>
+</body>
+</html>

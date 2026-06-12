@@ -6,7 +6,7 @@ Mặc định project chạy bằng H2 embedded in-memory, không cần Docker/P
 
 ## Chạy local không cần Docker
 
-Yêu cầu Java 17 và Maven:
+Yêu cầu Java 21 và Maven:
 
 ```bash
 mvn spring-boot:run
@@ -16,6 +16,26 @@ Swagger UI:
 
 ```text
 http://localhost:8080/swagger-ui.html
+```
+
+Frontend web:
+
+```text
+http://localhost:8080/
+```
+
+Sau khi đăng nhập thành công, frontend chuyển tới:
+
+```text
+http://localhost:8080/dashboard.html
+```
+
+Các trang chức năng:
+
+```text
+http://localhost:8080/products.html
+http://localhost:8080/inventory.html
+http://localhost:8080/orders.html
 ```
 
 H2 Console:
@@ -48,12 +68,25 @@ docker compose up --build
 ## Luồng API chính
 
 1. `POST /api/auth/login` lấy JWT.
-2. Dùng `Authorization: Bearer <token>`.
-3. `GET /api/products`, `GET /api/inventory`.
-4. `POST /api/orders` tạo đơn, hệ thống giữ kho bằng transaction.
-5. `POST /api/orders/{id}/confirm` xác nhận đơn, trừ phần kho đã giữ.
-6. `POST /api/orders/{id}/cancel` hủy đơn pending, hoàn kho đã giữ.
-7. `POST /api/orders/{id}/return` trả đơn confirmed, cộng lại kho.
+2. `POST /api/auth/register` đăng ký tài khoản người dùng thường.
+3. Dùng `Authorization: Bearer <token>`.
+4. `GET /api/products?q=mouse&page=0&size=10` tìm kiếm và phân trang sản phẩm.
+5. `GET /api/inventory` xem tồn kho.
+6. `POST /api/orders` tạo đơn, hệ thống giữ kho bằng transaction.
+7. `POST /api/orders/{id}/confirm` xác nhận đơn, trừ phần kho đã giữ.
+8. `POST /api/orders/{id}/cancel` hủy đơn pending, hoàn kho đã giữ.
+9. `POST /api/orders/{id}/return` trả đơn confirmed, cộng lại kho.
+
+## Tính năng nổi bật
+
+- JWT authentication và phân quyền `ADMIN` / `USER`.
+- Đăng ký tài khoản user.
+- CRUD sản phẩm cho admin, kiểm tra trùng SKU.
+- Tìm kiếm và phân trang danh sách sản phẩm.
+- Theo dõi tồn kho, nhập thêm tồn kho cho admin.
+- Luồng đơn hàng có transaction giữ/trừ/hoàn kho.
+- Frontend nhiều trang: đăng nhập, trang chủ, sản phẩm, tồn kho, đơn hàng.
+- UI có modal thêm/sửa sản phẩm, filter, pagination, loading và thông báo lỗi.
 
 Ví dụ login:
 

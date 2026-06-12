@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Đăng nhập - Inventory Order</title>
+    <link rel="stylesheet" href="/assets/styles.css">
+</head>
+<body data-page="login">
+<main class="login-screen">
+    <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+    <section class="login-panel">
+        <div>
+            <p class="eyebrow">Spring Boot API</p>
+            <h1>Inventory Order</h1>
+            <p class="muted">Đăng nhập để vào trang chủ và quản lý sản phẩm, tồn kho, đơn hàng.</p>
+        </div>
+        <div class="auth-stack">
+            <form id="loginForm" class="auth-form">
+                <div class="form-header">
+                    <h2>Đăng nhập</h2>
+                </div>
+                <label>
+                    Tài khoản
+                    <input id="username" name="username" autocomplete="username" value="admin" required>
+                </label>
+                <label>
+                    Mật khẩu
+                    <input id="password" name="password" type="password" autocomplete="current-password" value="admin123" required>
+                </label>
+                <button class="primary-button" type="submit">Đăng nhập</button>
+                <p class="hint">Admin: admin/admin123 | User: user/user123</p>
+            </form>
+            <form id="registerForm" class="auth-form">
+                <div class="form-header">
+                    <h2>Đăng ký tài khoản User</h2>
+                </div>
+                <label>
+                    Tài khoản mới
+                    <input id="registerUsername" name="username" autocomplete="username" required>
+                </label>
+                <label>
+                    Mật khẩu
+                    <input id="registerPassword" name="password" type="password" autocomplete="new-password" minlength="6" required>
+                </label>
+                <button class="secondary-button" type="submit">Đăng ký và vào hệ thống</button>
+            </form>
+        </div>
+    </section>
+</main>
+<script src="/assets/app.js"></script>
+</body>
+</html>
